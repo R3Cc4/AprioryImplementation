@@ -22,6 +22,8 @@ public class Test {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
+        System.out.println("end");
+
     }
 
 }
