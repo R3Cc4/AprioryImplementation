@@ -2,8 +2,10 @@ package apriory.controller.implementation;
 
 import apriory.controller.items.ItemSet;
 import apriory.data.loaders.DataReaderI;
+
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -24,7 +26,31 @@ public class FrequentItemSetsGenerator {
     public Set<ItemSet> generate() throws IOException {
 
         Set<Set<String>> data = dataReader.readData();
-        initializeSet(data);
+        int maxValue = data.iterator().next().size();
+        Set<ItemSet> freqItemsK = initializeSet(data);
+        Set<ItemSet> generatedData = new HashSet<ItemSet>();
+        generatedData.addAll(freqItemsK);
+
+        for (int i = 0; i < maxValue; i++) {
+
+            Set<ItemSet> candidates = generateCandidates(freqItemsK);
+            for (Set<String> strings : data) {
+                for (ItemSet candidate : candidates) {
+                    if (strings.containsAll(candidate.getItems())) candidate.incrementSupport();
+                }
+            }
+            Iterator<ItemSet> iterator = candidates.iterator();
+            ItemSet candidateT = null;
+            while(iterator.hasNext()) {
+                candidateT = iterator.next();
+                if (candidateT.getSupport() == 0) iterator.remove();
+            }
+
+            freqItemsK = candidates;
+            generatedData.addAll(freqItemsK);
+
+        }
+
 
         return null;
     }
@@ -48,7 +74,7 @@ public class FrequentItemSetsGenerator {
                             setToBeAdded = true;
                         }
                     }
-                    if(setToBeAdded)addItem(itemSets, s);
+                    if (setToBeAdded) addItem(itemSets, s);
                     setToBeAdded = false;
                 }
             }
@@ -61,5 +87,35 @@ public class FrequentItemSetsGenerator {
         ItemSet temp = new ItemSet();
         temp.addItem(s);
         itemSets.add(temp);
+    }
+
+    private Set<ItemSet> generateCandidates(Set<ItemSet> freqItems) {
+
+        Set<ItemSet> candidates = new HashSet<ItemSet>();
+        boolean toBeAdded = false;
+
+        for (ItemSet freqItemJ : freqItems) {
+            for (ItemSet freqItemK : freqItems) {
+                if (freqItemJ.equals(freqItemK)) continue;
+                if (freqItemJ.equalMinusOne(freqItemK)) {
+                    ItemSet temp = freqItemJ.join(freqItemK);
+                    if (candidates.size() == 0) candidates.add(temp);
+                    else {
+                        toBeAdded = false;
+                        for (ItemSet candidate : candidates) {
+                            if (candidate.equals(temp)){
+                                toBeAdded = false;
+                                break;
+                            }
+                            toBeAdded = true;
+                        }
+                    }
+
+                    if (toBeAdded) candidates.add(temp);
+                }
+            }
+
+        }
+        return candidates;
     }
 }
