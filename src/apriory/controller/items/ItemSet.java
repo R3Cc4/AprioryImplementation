@@ -13,7 +13,7 @@ import java.util.Set;
 public class ItemSet {
 
     private Set<String> items;
-    private int support;
+    private double support;
 
     public ItemSet() {
         this.items = new HashSet<String>();
@@ -28,11 +28,11 @@ public class ItemSet {
         return items;
     }
 
-    public int getSupport() {
+    public double getSupport() {
         return support;
     }
 
-    public void setSupport(int support) {
+    public void setSupport(double support) {
         this.support = support;
     }
 

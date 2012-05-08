@@ -23,11 +23,11 @@ public class FrequentItemSetsGenerator {
         this.dataReader = dataReader;
     }
 
-    public Set<ItemSet> generate() throws IOException {
+    public Set<ItemSet> generate(double support) throws IOException {
 
         Set<Set<String>> data = dataReader.readData();
         int maxValue = data.iterator().next().size();
-        Set<ItemSet> freqItemsK = initializeSet(data);
+        Set<ItemSet> freqItemsK = recomputeSupport(initializeSet(data),data,support);
         Set<ItemSet> generatedData = new HashSet<ItemSet>();
         generatedData.addAll(freqItemsK);
 
@@ -39,20 +39,31 @@ public class FrequentItemSetsGenerator {
                     if (strings.containsAll(candidate.getItems())) candidate.incrementSupport();
                 }
             }
-            Iterator<ItemSet> iterator = candidates.iterator();
-            ItemSet candidateT = null;
-            while (iterator.hasNext()) {
-                candidateT = iterator.next();
-                if (candidateT.getSupport() == 0) iterator.remove();
-            }
-
+            candidates = recomputeSupport(candidates,data,support);
             freqItemsK = candidates;
             generatedData.addAll(freqItemsK);
 
         }
 
+        return generatedData;
+    }
 
-        return null;
+    private Set<ItemSet> recomputeSupport(Set<ItemSet> dataFreqSet,Set<Set<String>> data, double support){
+
+        double size = data.size();
+
+        for (ItemSet itemSet : dataFreqSet) {
+            itemSet.setSupport(itemSet.getSupport()/size);
+        }
+
+        Iterator<ItemSet> iterator = dataFreqSet.iterator();
+        ItemSet candidateT = null;
+        while (iterator.hasNext()) {
+            candidateT = iterator.next();
+            if (candidateT.getSupport() <= support) iterator.remove();
+        }
+
+        return dataFreqSet;
     }
 
     private Set<ItemSet> initializeSet(Set<Set<String>> data) {

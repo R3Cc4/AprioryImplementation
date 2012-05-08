@@ -14,6 +14,5 @@ import java.util.Set;
  */
 public interface AprioryImplI {
 
-    public Set<ItemSet> getFrequentItemSets() throws IOException;
-
+    public Set<ItemSet> getFrequentItemSets(double support) throws IOException;
 }

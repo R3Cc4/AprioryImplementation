@@ -24,9 +24,9 @@ public class AprioryImpl implements AprioryImplI {
     }
 
     @Override
-    public Set<ItemSet> getFrequentItemSets() throws IOException {
+    public Set<ItemSet> getFrequentItemSets(double support) throws IOException {
 
-        frequentItemSetsGenerator.generate();
+        frequentItemSetsGenerator.generate(support);
 
 
         return null;  //To change body of implemented methods use File | Settings | File Templates.
