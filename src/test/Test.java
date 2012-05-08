@@ -1,7 +1,9 @@
 package test;
 
-import apriory.data.loaders.ArffDataReader;
+import apriory.controller.implementation.AprioryImplFactory;
+import apriory.controller.implementation.AprioryImplI;
 import apriory.data.loaders.DataReaderFactory;
+import apriory.data.loaders.DataReaderI;
 
 import java.io.IOException;
 
@@ -16,13 +18,15 @@ public class Test {
 
     public static void main(String[] args) {
 
+        DataReaderI dataReader = DataReaderFactory.createArffDataReader("e:/vyvoj/AprioryProject/data/weather.nominal.arff");
+        AprioryImplI aprioryImpl = AprioryImplFactory.createAprioryImpl(dataReader);
+
         try {
-            DataReaderFactory.createArffDataReader("e:/vyvoj/AprioryProject/data/weather.nominal.arff").readData();
+            aprioryImpl.getFrequentItemSets();
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        System.out.println("end");
 
     }
 
