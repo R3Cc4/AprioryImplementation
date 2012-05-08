@@ -41,7 +41,7 @@ public class FrequentItemSetsGenerator {
             }
             Iterator<ItemSet> iterator = candidates.iterator();
             ItemSet candidateT = null;
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 candidateT = iterator.next();
                 if (candidateT.getSupport() == 0) iterator.remove();
             }
@@ -98,24 +98,31 @@ public class FrequentItemSetsGenerator {
             for (ItemSet freqItemK : freqItems) {
                 if (freqItemJ.equals(freqItemK)) continue;
                 if (freqItemJ.equalMinusOne(freqItemK)) {
-                    ItemSet temp = freqItemJ.join(freqItemK);
-                    if (candidates.size() == 0) candidates.add(temp);
-                    else {
-                        toBeAdded = false;
-                        for (ItemSet candidate : candidates) {
-                            if (candidate.equals(temp)){
-                                toBeAdded = false;
-                                break;
-                            }
-                            toBeAdded = true;
-                        }
-                    }
-
-                    if (toBeAdded) candidates.add(temp);
+                    addCandidate(candidates, toBeAdded, freqItemJ, freqItemK);
                 }
             }
 
         }
         return candidates;
+    }
+
+    private void addCandidate(Set<ItemSet> candidates, boolean toBeAdded, ItemSet freqItemJ, ItemSet freqItemK) {
+
+        ItemSet temp = freqItemJ.join(freqItemK);
+
+        if (candidates.size() == 0) candidates.add(temp);
+        else {
+            toBeAdded = false;
+            for (ItemSet candidate : candidates) {
+                if (candidate.equals(temp)) {
+                    toBeAdded = false;
+                    break;
+                }
+                toBeAdded = true;
+            }
+        }
+
+        if (toBeAdded) candidates.add(temp);
+
     }
 }
