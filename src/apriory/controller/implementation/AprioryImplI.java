@@ -2,6 +2,7 @@ package apriory.controller.implementation;
 
 import apriory.controller.items.ItemSet;
 import apriory.controller.items.RuleSet;
+import apriory.controller.items.RuleSetWrapper;
 
 import java.io.IOException;
 import java.util.Set;
@@ -17,5 +18,5 @@ public interface AprioryImplI {
 
     public Set<ItemSet> getFrequentItemSets(double support) throws IOException;
 
-    Set<RuleSet> getRules(double support, double confidence) throws IOException;
+    public Set<RuleSetWrapper> getRules(double support, double confidence) throws IOException;
 }

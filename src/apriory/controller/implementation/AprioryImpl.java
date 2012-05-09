@@ -2,6 +2,7 @@ package apriory.controller.implementation;
 
 import apriory.controller.items.ItemSet;
 import apriory.controller.items.RuleSet;
+import apriory.controller.items.RuleSetWrapper;
 import apriory.data.loaders.DataReaderI;
 
 import java.io.IOException;
@@ -37,12 +38,11 @@ public class AprioryImpl implements AprioryImplI {
     }
 
     @Override
-    public Set<RuleSet> getRules(double support, double confidence) throws IOException {
+    public Set<RuleSetWrapper> getRules(double support, double confidence) throws IOException {
 
         if (rulesGenerator == null) this.rulesGenerator = new RulesGenerator(getFrequentItemSets(support));
 
-        rulesGenerator.generate(confidence);
+        return rulesGenerator.generate(confidence);
 
-        return null;
     }
 }

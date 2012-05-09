@@ -48,12 +48,8 @@ public class RulesGenerator {
                     ruleSets.add(ruleSetWrapper);
                 }
             }
-
-
         }
-
-
-        return null;
+        return ruleSets;
     }
 
     private Set<ItemSet> getSubsets(Set<ItemSet> itemSets, ItemSet itemSetSup) {
