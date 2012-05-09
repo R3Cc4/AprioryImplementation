@@ -22,7 +22,7 @@ public class Test {
         AprioryImplI aprioryImpl = AprioryImplFactory.createAprioryImpl(dataReader);
 
         try {
-            aprioryImpl.getFrequentItemSets(0.4);
+            aprioryImpl.getRules(0.25,0);
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

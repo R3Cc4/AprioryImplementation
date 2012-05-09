@@ -10,41 +10,14 @@ import java.util.Set;
  * Time: 9:43
  * To change this template use File | Settings | File Templates.
  */
-public class ItemSet {
-
-    private Set<String> items;
-    private double support;
+public class ItemSet extends ItemSetAncestor {
 
     public ItemSet() {
-        this.items = new HashSet<String>();
-        this.support = 1;
-    }
-
-    public void addItem(String item) {
-        items.add(item);
-    }
-
-    public Set<String> getItems() {
-        return items;
-    }
-
-    public double getSupport() {
-        return support;
-    }
-
-    public void setSupport(double support) {
-        this.support = support;
+        super();
     }
 
     public void incrementSupport() {
         this.support++;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        ItemSet itemSet2 = (ItemSet) obj;
-        if (items.containsAll(itemSet2.getItems())) return true;
-        else return false;
     }
 
     public boolean equalMinusOne(ItemSet itemSet2) {
@@ -68,6 +41,13 @@ public class ItemSet {
         joined.getItems().addAll(items);
 
         return joined;
+    }
+
+    public boolean equalsExactly(ItemSet itemSet) {
+
+        if (items.containsAll(itemSet.getItems()) && itemSet.getItems().containsAll(items)) return true;
+        return false;
+
     }
 
 }
