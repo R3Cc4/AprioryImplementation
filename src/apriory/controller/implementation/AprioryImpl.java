@@ -14,6 +14,8 @@ import java.util.Set;
  * Date: 8.5.12
  * Time: 10:03
  * To change this template use File | Settings | File Templates.
+ *
+ * This class implements Apriori algorithm.
  */
 public class AprioryImpl implements AprioryImplI {
 

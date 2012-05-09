@@ -15,6 +15,8 @@ import java.util.Set;
  * Date: 7.5.12
  * Time: 22:22
  * To change this template use File | Settings | File Templates.
+ *
+ * This class reads data from Arff files. It uses weka API for obtaining data from files.
  */
 public class ArffDataReader implements DataReaderI {
 

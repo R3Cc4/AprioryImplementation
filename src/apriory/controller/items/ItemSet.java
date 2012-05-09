@@ -9,6 +9,8 @@ import java.util.Set;
  * Date: 8.5.12
  * Time: 9:43
  * To change this template use File | Settings | File Templates.
+ *
+ * Basic class representing single frequent item set.
  */
 public class ItemSet extends ItemSetAncestor {
 
@@ -20,6 +22,12 @@ public class ItemSet extends ItemSetAncestor {
         this.support++;
     }
 
+    /**
+     * Test if this subset with itemSet2.size-1 is the subset of itemSet2.
+     *
+     * @param itemSet2
+     * @return
+     */
     public boolean equalMinusOne(ItemSet itemSet2) {
 
         int sizeOfL = items.size();
@@ -33,6 +41,12 @@ public class ItemSet extends ItemSetAncestor {
         return false;
     }
 
+    /**
+     * Join of two frequent item sets.
+     *
+     * @param itemSet2
+     * @return
+     */
     public ItemSet join(ItemSet itemSet2) {
 
         ItemSet joined = new ItemSet();
@@ -43,6 +57,12 @@ public class ItemSet extends ItemSetAncestor {
         return joined;
     }
 
+    /**
+     * This method check whether two items contains exactly same values.
+     *
+     * @param itemSet
+     * @return
+     */
     public boolean equalsExactly(ItemSet itemSet) {
 
         if (items.containsAll(itemSet.getItems()) && itemSet.getItems().containsAll(items)) return true;

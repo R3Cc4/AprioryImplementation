@@ -9,6 +9,8 @@ import java.util.Set;
  * Date: 9.5.12
  * Time: 18:22
  * To change this template use File | Settings | File Templates.
+ *
+ * Parent class of all Item sets and Rule sets
  */
 public class ItemSetAncestor {
     protected Set<String> items;

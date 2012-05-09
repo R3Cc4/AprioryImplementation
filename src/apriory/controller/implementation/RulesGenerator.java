@@ -14,6 +14,8 @@ import java.util.Set;
  * Date: 9.5.12
  * Time: 18:11
  * To change this template use File | Settings | File Templates.
+ *
+ * This class implements rules generation algorithm.
  */
 public class RulesGenerator {
 
@@ -25,6 +27,12 @@ public class RulesGenerator {
 
     }
 
+    /**
+     * Main method for generating rule sets. Implemented as in the supplied material.
+     *
+     * @param confidence min confidence
+     * @return Set of rules
+     */
     public Set<RuleSetWrapper> generate(double confidence) {
 
         Set<RuleSetWrapper> ruleSets = new HashSet<RuleSetWrapper>();
@@ -52,6 +60,12 @@ public class RulesGenerator {
         return ruleSets;
     }
 
+    /**
+     * This method implements generation of subsets for given set.
+     * @param itemSets Set of all frequent items
+     * @param itemSetSup Item which subsets are generated
+     * @return Set of subsets
+     */
     private Set<ItemSet> getSubsets(Set<ItemSet> itemSets, ItemSet itemSetSup) {
 
         int size = itemSetSup.getItems().size();
@@ -66,6 +80,14 @@ public class RulesGenerator {
 
     }
 
+    /**
+     * Method for complement generation.
+     *
+     * @param itemSets Set of frequent items
+     * @param itemSetOrig Whole Itemset
+     * @param subset Itemset for which the complement will be generated
+     * @return
+     */
     private ItemSet getComplement(Set<ItemSet> itemSets, ItemSet itemSetOrig, ItemSet subset) {
 
         ItemSet complement = new ItemSet();

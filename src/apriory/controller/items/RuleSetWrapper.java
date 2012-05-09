@@ -8,6 +8,8 @@ import java.util.Formatter;
  * Date: 9.5.12
  * Time: 21:45
  * To change this template use File | Settings | File Templates.
+ *
+ * This class is wrapping whole association rule.
  */
 public class RuleSetWrapper {
 
@@ -82,9 +84,11 @@ public class RuleSetWrapper {
             counter++;
         }
 
-        s = s + "  (confidence: " + String.format("%4.3f", getConfidence()) + ")";
-        s = s + "  (lift: " + String.format("%4.3f", getLift()) + ")";
-        s = s + "  (conviction: " + String.format("%4.3f",getConviction()) + ")";
+        s = s + " \t(support: " + String.format("%6.5f",getSupport()) + ")";
+        s = s + " \t(confidence: " + String.format("%6.5f", getConfidence()) + ")";
+        s = s + " \t(lift: " + String.format("%6.5f", getLift()) + ")";
+        s = s + " \t(conviction: " + String.format("%6.5f",getConviction()) + ")";
+
         return s;
     }
 }
